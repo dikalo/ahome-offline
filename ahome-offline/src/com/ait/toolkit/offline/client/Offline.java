@@ -27,24 +27,22 @@ import com.google.gwt.user.client.DOM;
  */
 public class Offline {
 
-	public static final String VERSION = "0.7.2";
-	private static final String OFFLINE_RESSOURCES_FOLDER = GWT
-			.getModuleBaseURL() + "ahomeOffline/";
+	private static final String VERSION = "0.7.2";
+	private static final String OFFLINE_RESSOURCES_FOLDER = GWT.getModuleBaseURL() + "ahomeOffline/";
 	private static final String ERROR_MESSAGE = "Offline class used without Offline.js";
 	private static final String CSS_LANGUAGE_ID = "ahome-offline-lang";
 	private static final String CSS_LANGUAGE_INDICATOR_ID = "ahome-offline-indicator-lang";
 	private static final String CSS_THEME_ID = "ahome-offline-theme";
 	private static final String CSS_THEME_INDICATOR_ID = "ahome-offline-indicator-theme";
-	private static final String OFFLINE_THEMES_FOLDER = OFFLINE_RESSOURCES_FOLDER
-			+ VERSION + "/themes/";
+	private static final String OFFLINE_THEMES_FOLDER = OFFLINE_RESSOURCES_FOLDER + VERSION + "/themes/";
 
 	static {
 		if (isLoaded()) {
-			setTheme(OfflineTheme.DARK);
+			setTheme(OfflineTheme.DEFAULT);
 			setLanguage(OfflineLanguage.ENGLISH);
 		} else {
 			load();
-			setTheme(OfflineTheme.DARK);
+			setTheme(OfflineTheme.DEFAULT);
 			setLanguage(OfflineLanguage.ENGLISH);
 		}
 
@@ -62,8 +60,7 @@ public class Offline {
 	public static void load() {
 		if (!isLoaded()) {
 			OfflineResources resources = GWT.create(OfflineResources.class);
-			ScriptInjector.fromString(resources.js().getText())
-					.setWindow(ScriptInjector.TOP_WINDOW).inject();
+			ScriptInjector.fromString(resources.js().getText()).setWindow(ScriptInjector.TOP_WINDOW).inject();
 		}
 	}
 
@@ -74,8 +71,7 @@ public class Offline {
 	 *            , the theme to use
 	 */
 	public static void setTheme(OfflineTheme theme) {
-		String cssTheme = OFFLINE_THEMES_FOLDER + "offline-theme-"
-				+ theme.name().toLowerCase() + ".css";
+		String cssTheme = OFFLINE_THEMES_FOLDER + "offline-theme-" + theme.name().toLowerCase() + ".css";
 		// String cssIndicatorTheme = RESOURCE_FOLDER + "offline-theme-"
 		// + theme.name().toLowerCase() + "-indicator.css";
 
@@ -86,10 +82,8 @@ public class Offline {
 		}
 
 		/*
-		 * if (isRessourceInject(CSS_THEME_INDICATOR_ID)) {
-		 * updateStyle(CSS_THEME_INDICATOR_ID, cssIndicatorTheme); } else {
-		 * CssUtil.injectStyleSheet(cssIndicatorTheme, CSS_THEME_INDICATOR_ID);
-		 * }
+		 * if (isRessourceInject(CSS_THEME_INDICATOR_ID)) { updateStyle(CSS_THEME_INDICATOR_ID, cssIndicatorTheme); } else { CssUtil.injectStyleSheet(cssIndicatorTheme,
+		 * CSS_THEME_INDICATOR_ID); }
 		 */
 
 	}
@@ -101,8 +95,7 @@ public class Offline {
 	 *            , the language to use
 	 */
 	public static void setLanguage(OfflineLanguage language) {
-		String offlineLang = OFFLINE_THEMES_FOLDER + "offline-language-"
-				+ language.name().toLowerCase() + ".css";
+		String offlineLang = OFFLINE_THEMES_FOLDER + "offline-language-" + language.name().toLowerCase() + ".css";
 		if (isRessourceInject(CSS_LANGUAGE_ID)) {
 			updateStyle(CSS_THEME_ID, offlineLang);
 		} else {
@@ -113,29 +106,27 @@ public class Offline {
 
 	/** Should we check the connection status immediately on page load. */
 	public static native void setCheckOnLoad(boolean value)/*-{
-															$wnd.Offline.options.checkOnLoad = value;
-															}-*/;
+		$wnd.Offline.options.checkOnLoad = value;
+	}-*/;
 
 	/** Should we monitor AJAX requests to help decide if we have a connection. */
 	public static native void setInterceptsRequests(boolean value)/*-{
-																	$wnd.Offline.options.interceptRequests = value;
-																	}-*/;
+		$wnd.Offline.options.interceptRequests = value;
+	}-*/;
 
 	/**
-	 * Should we store and attempt to remake requests which fail while the
-	 * connection is down.
+	 * Should we store and attempt to remake requests which fail while the connection is down.
 	 */
 	public static native void setRequests(boolean value)/*-{
-														$wnd.Offline.options.requests = value;
-														}-*/;
+		$wnd.Offline.options.requests = value;
+	}-*/;
 
 	/**
-	 * Should we automatically retest periodically when the connection is down
-	 * (set to false to disable).
+	 * Should we automatically retest periodically when the connection is down (set to false to disable).
 	 */
 	public static native void setReconnect(boolean value)/*-{
-															$wnd.Offline.options.reconnect = value;
-															}-*/;
+		$wnd.Offline.options.reconnect = value;
+	}-*/;
 
 	/**
 	 * Should we automatically retest periodically when the connection is down.
@@ -146,25 +137,25 @@ public class Offline {
 	 *            , How long should we wait between retries.
 	 */
 	public static native void setReconnectDelays(double initial, double retryIn)/*-{
-																				$wnd.Offline.options.reconnect = {
-																				initialDelay : initial,
-																				delay : retryIn
-																				};
-																				}-*/;
+		$wnd.Offline.options.reconnect = {
+			initialDelay : initial,
+			delay : retryIn
+		};
+	}-*/;
 
 	/**
 	 * Check the current status of the connection.
 	 */
 	public static native void check()/*-{
-										$wnd.Offline.check();
-										}-*/;
+		$wnd.Offline.check();
+	}-*/;
 
 	/**
 	 * Check the current status of the connection.
 	 */
 	public static native String getState()/*-{
-											return $wnd.Offline.state;
-											}-*/;
+		return $wnd.Offline.state;
+	}-*/;
 
 	/**
 	 * Set how the offline status should be checked
@@ -173,9 +164,9 @@ public class Offline {
 	 *            , the check strategy method to be used
 	 */
 	public static native void setChecks(OfflineCheck check)/*-{
-															var peer = check.@com.ait.toolkit.core.client.JsObject::getJsObj()();
-															$wnd.Offline.options.checks = peer;
-															}-*/;
+		var peer = check.@com.ait.toolkit.core.client.JsObject::getJsObj()();
+		$wnd.Offline.options.checks = peer;
+	}-*/;
 
 	/**
 	 * Removes Offline resources from the DOM.
@@ -214,8 +205,7 @@ public class Offline {
 	}
 
 	/**
-	 * A connection test has succeeded, fired even if the connection was already
-	 * up
+	 * A connection test has succeeded, fired even if the connection was already up
 	 * 
 	 * @param handler
 	 *            , the handler that will handler this event
@@ -225,8 +215,7 @@ public class Offline {
 	}
 
 	/**
-	 * A connection test has failed, fired even if the connection was already
-	 * down
+	 * A connection test has failed, fired even if the connection was already down
 	 * 
 	 * @param handler
 	 *            , the handler that will handler this event
@@ -239,21 +228,21 @@ public class Offline {
 	 * Convenient method to set the offline status to up
 	 */
 	public static native void up()/*-{
-									if (!$wnd.Offline.options.checks) {
-									$wnd.Offline.options.checks = new $wnd.Object();
-									}
-									$wnd.Offline.options.checks.active = 'up';
-									}-*/;
+		if (!$wnd.Offline.options.checks) {
+			$wnd.Offline.options.checks = new $wnd.Object();
+		}
+		$wnd.Offline.options.checks.active = 'up';
+	}-*/;
 
 	/**
 	 * Convenient method to set the offline status to down
 	 */
 	public static native void down()/*-{
-									if (!$wnd.Offline.options.checks) {
-									$wnd.Offline.options.checks = new $wnd.Object();
-									}
-									$wnd.Offline.options.checks.active = 'down';
-									}-*/;
+		if (!$wnd.Offline.options.checks) {
+			$wnd.Offline.options.checks = new $wnd.Object();
+		}
+		$wnd.Offline.options.checks.active = 'down';
+	}-*/;
 
 	/**
 	 * We are testing the connection
@@ -286,8 +275,7 @@ public class Offline {
 	}
 
 	/**
-	 * Fired every second during a reconnect attempt, when a check is not
-	 * happening
+	 * Fired every second during a reconnect attempt, when a check is not happening
 	 * 
 	 * @param handler
 	 *            , the handler that will handler this event
@@ -304,6 +292,15 @@ public class Offline {
 	 */
 	public static EventRegistration addReconnectingHandler(Function handler) {
 		return addHandler("reconnect-reconnecting", handler);
+	}
+
+	/**
+	 * Return the underlying Offline.js version
+	 * 
+	 * @return
+	 */
+	public static String getVersion() {
+		return VERSION;
 	}
 
 	/**
@@ -336,21 +333,20 @@ public class Offline {
 		return addHandler("request-hold", handler);
 	}
 
-	private static native EventRegistration addHandler(String event,
-			Function handler)/*-{
-								var fn = function() {
-								handler.@com.ait.toolkit.core.client.Function::execute()();
-								};
-								$wnd.Offline.on(event, fn);
-								return @com.ait.toolkit.offline.client.EventRegistration::new(Ljava/lang/String;Lcom/google/gwt/core/client/JavaScriptObject;)(event,fn);
-								}-*/;
+	private static native EventRegistration addHandler(String event, Function handler)/*-{
+		var fn = function() {
+			handler.@com.ait.toolkit.core.client.Function::execute()();
+		};
+		$wnd.Offline.on(event, fn);
+		return @com.ait.toolkit.offline.client.EventRegistration::new(Ljava/lang/String;Lcom/google/gwt/core/client/JavaScriptObject;)(event,fn);
+	}-*/;
 
 	public static native boolean isLoaded()/*-{
-											if (typeof $wnd.Offline === "undefined" || $wnd.Offline === null) {
-											return false;
-											}
-											return true;
-											}-*/;
+		if (typeof $wnd.Offline === "undefined" || $wnd.Offline === null) {
+			return false;
+		}
+		return true;
+	}-*/;
 
 	private static boolean isRessourceInject(String resourceId) {
 		return DOM.getElementById(resourceId) != null;
