@@ -17,6 +17,7 @@ package com.ait.toolkit.offline.client;
 
 import com.ait.toolkit.core.client.CSSUtil;
 import com.ait.toolkit.core.client.Function;
+import com.ait.toolkit.core.client.Util;
 import com.ait.toolkit.offline.client.resources.OfflineResources;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.ScriptInjector;
@@ -28,7 +29,7 @@ import com.google.gwt.user.client.DOM;
 public class Offline {
 
 	private static final String VERSION = "0.7.2";
-	private static final String OFFLINE_RESSOURCES_FOLDER = GWT.getModuleBaseURL() + "ahomeOffline/";
+	private static final String OFFLINE_RESSOURCES_FOLDER = Util.getModuleBaseUrl() + "ahomeOffline/";
 	private static final String ERROR_MESSAGE = "Offline class used without Offline.js";
 	private static final String CSS_LANGUAGE_ID = "ahome-offline-lang";
 	private static final String CSS_LANGUAGE_INDICATOR_ID = "ahome-offline-indicator-lang";
