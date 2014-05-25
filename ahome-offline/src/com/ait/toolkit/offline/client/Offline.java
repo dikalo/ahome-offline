@@ -98,7 +98,7 @@ public class Offline {
 	public static void setLanguage(OfflineLanguage language) {
 		String offlineLang = OFFLINE_THEMES_FOLDER + "offline-language-" + language.name().toLowerCase() + ".css";
 		if (isRessourceInject(CSS_LANGUAGE_ID)) {
-			updateStyle(CSS_THEME_ID, offlineLang);
+			updateStyle(CSS_LANGUAGE_ID, offlineLang);
 		} else {
 			CSSUtil.injectStyleSheet(offlineLang, CSS_LANGUAGE_ID);
 		}
