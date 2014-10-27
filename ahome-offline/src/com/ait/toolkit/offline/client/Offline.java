@@ -170,6 +170,19 @@ public class Offline {
 	}-*/;
 
 	/**
+	 * Sets which url should be checked.
+	 * 
+	 * @param checkUrl
+	 */
+	public static native void setCheckUrl(String checkUrl)/*-{
+		$wnd.Offline.options.checks = {
+			xhr : {
+				url : checkUrl
+			}
+		};
+	}-*/;
+
+	/**
 	 * Removes Offline resources from the DOM.
 	 */
 	public static void removeRessources() {
