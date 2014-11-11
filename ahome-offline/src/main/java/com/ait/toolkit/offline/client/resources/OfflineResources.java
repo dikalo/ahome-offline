@@ -22,4 +22,7 @@ public interface OfflineResources extends ClientBundle {
 
 	@Source("offline.min-0.7.2.js")
 	TextResource js();
+
+	@Source("offline.no.ui.js")
+	TextResource jsNoUi();
 }

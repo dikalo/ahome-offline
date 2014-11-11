@@ -38,15 +38,24 @@ public class Offline {
 	private static final String OFFLINE_THEMES_FOLDER = OFFLINE_RESSOURCES_FOLDER + VERSION + "/themes/";
 
 	static {
+
+	}
+
+	public static void load() {
 		if (isLoaded()) {
 			setTheme(OfflineTheme.DEFAULT);
 			setLanguage(OfflineLanguage.ENGLISH);
 		} else {
-			load();
+			loadWithUi();
 			setTheme(OfflineTheme.DEFAULT);
 			setLanguage(OfflineLanguage.ENGLISH);
 		}
+		setReconnectDelays(45, 10);
+		setCheckOnLoad(true);
+	}
 
+	public static void loadNoUi() {
+		_loadWNoUi();
 		setReconnectDelays(45, 10);
 		setCheckOnLoad(true);
 	}
@@ -55,14 +64,14 @@ public class Offline {
 
 	}
 
-	/**
-	 * Loads the offline library. You normally never have to do this manually
-	 */
-	public static void load() {
-		if (!isLoaded()) {
-			OfflineResources resources = GWT.create(OfflineResources.class);
-			ScriptInjector.fromString(resources.js().getText()).setWindow(ScriptInjector.TOP_WINDOW).inject();
-		}
+	private static void loadWithUi() {
+		OfflineResources resources = GWT.create(OfflineResources.class);
+		ScriptInjector.fromString(resources.js().getText()).setWindow(ScriptInjector.TOP_WINDOW).inject();
+	}
+
+	private static void _loadWNoUi() {
+		OfflineResources resources = GWT.create(OfflineResources.class);
+		ScriptInjector.fromString(resources.jsNoUi().getText()).setWindow(ScriptInjector.TOP_WINDOW).inject();
 	}
 
 	/**
